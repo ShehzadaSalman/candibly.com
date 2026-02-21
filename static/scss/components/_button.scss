@@ -1,0 +1,41 @@
+/* ///////////////////////////////////////////////////////////
+03. button
+/////////////////////////////////////////////////////////// */ 
+@use '../abstracts/variables' as *;
+
+// section css start
+
+.theme-btn {
+    border-radius: 50px;
+    background: var(--clr-theme-primary);
+    color: #FFF;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    height: 46px;
+    line-height: 45px;
+    padding: 0 25px;
+    @include transition(.3s);
+    &:hover {
+        background: #b9b9b9;
+        color: #fff;
+    }
+}
+
+// theme btn 2 
+.theme-btn-2 {
+    border-radius: 8px;
+    background: var(--clr-theme-primary);
+    color: #FFF;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 30px;
+    @include transition(.3s);
+    &:hover {
+        background: #b9b9b9;
+        color: #fff;
+    }
+}

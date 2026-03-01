@@ -14,10 +14,12 @@
     <link rel="stylesheet" href="static/css/main.css" />
     <style>
       :root {
-        --candibly-primary: #0D3B66;
-        --candibly-cta: #28A745;
-        --candibly-bg: #F8F9FA;
-        --candibly-text: #333333;
+        --candibly-primary: #0d3b66;
+        --candibly-cta: #28a745;
+        --candibly-bg: #f3f7fc;
+        --candibly-text: #243447;
+        --candibly-card: #ffffff;
+        --candibly-accent: #f39c12;
       }
 
       body {
@@ -26,19 +28,27 @@
       }
 
       header {
-        background: var(--candibly-primary) !important;
-        border-bottom: 0 !important;
+        background: #ffffff !important;
+        border-bottom: 1px solid #e8edf5 !important;
       }
 
       header a,
       header p {
-        color: #ffffff !important;
+        color: var(--candibly-text) !important;
       }
 
       .header-action-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         background: var(--candibly-cta) !important;
         border-color: var(--candibly-cta) !important;
         color: #ffffff !important;
+        border-radius: 999px;
+        padding: 0.68rem 1.25rem;
+        font-weight: 600;
+        line-height: 1;
+        text-align: center;
       }
 
       .footer-area,
@@ -47,6 +57,101 @@
       .footer-area li {
         color: #eaf2ff !important;
       }
+
+      .blog-hero {
+        background:
+          radial-gradient(circle at 12% 20%, rgba(40, 167, 69, 0.1), transparent 50%),
+          radial-gradient(circle at 85% 18%, rgba(243, 156, 18, 0.18), transparent 40%),
+          linear-gradient(140deg, #0d3b66, #195389);
+        color: #f4f9ff;
+        border-radius: 24px;
+        padding: 3rem 2rem;
+        box-shadow: 0 22px 60px rgba(13, 59, 102, 0.24);
+      }
+
+      .blog-hero p {
+        color: #d7e8ff;
+        margin-bottom: 0;
+      }
+
+      .blog-hero h1 {
+        color: #ffffff;
+      }
+
+      .blog-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        background: rgba(255, 255, 255, 0.16);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.26);
+        border-radius: 999px;
+        padding: 0.35rem 0.8rem;
+        font-size: 0.8rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .post-card {
+        margin-top: 2rem;
+        background: var(--candibly-card);
+        border-radius: 20px;
+        box-shadow: 0 14px 36px rgba(22, 41, 73, 0.1);
+        border: 1px solid #e5edf8;
+        overflow: hidden;
+      }
+
+      .post-card-body {
+        padding: 2rem;
+      }
+
+      .post-card h2 {
+        font-size: clamp(1.35rem, 2.2vw, 2rem);
+        line-height: 1.3;
+        margin-bottom: 0.75rem;
+      }
+
+      .post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .post-meta span {
+        background: #eef4ff;
+        color: var(--candibly-primary);
+        border-radius: 999px;
+        padding: 0.3rem 0.8rem;
+        font-size: 0.84rem;
+        font-weight: 500;
+      }
+
+      .post-link {
+        color: var(--candibly-primary);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .post-link:hover {
+        color: var(--candibly-cta);
+      }
+
+      .section-wrap {
+        padding-top: 4.5rem;
+        padding-bottom: 4.5rem;
+      }
+
+      @media (max-width: 767px) {
+        .blog-hero {
+          padding: 2.25rem 1.25rem;
+          border-radius: 18px;
+        }
+
+        .post-card-body {
+          padding: 1.25rem;
+        }
+      }
     </style>
   </head>
   <body>
@@ -54,7 +159,7 @@
       <div class="container py-4 d-flex align-items-center justify-content-between">
         <a href="/" class="d-inline-flex align-items-center">
           <img
-            src="/static/images/logo/logo.png"
+            src="/images/candibly-logo.png"
             alt="Candibly Logo"
             height="48"
           />
@@ -68,19 +173,42 @@
       </div>
     </header>
 
-    <main class="pt-80 pb-80">
+    <main class="section-wrap">
       <div class="container">
-        <div class="text-center mb-4">
-          <img src="/images/candibly-logo.png" alt="Candibly Logo" style="max-height:200px;" />
-        </div>
-        <h1 class="mb-4">Candibly Blog</h1>
-        <ul class="list-unstyled">
-          <li>
-            <a href="/blog-silent-revolution.html">
-              The Silent Revolution: Why AI Receptionists are the New Norm for Small Businesses in 2026
+        <section class="blog-hero">
+          <span class="blog-pill">Candibly Insights</span>
+          <h1 class="mt-3 mb-3">Blog for Home Service Growth Team</h1>
+          <p>
+            Practical insights on AI receptionists, call conversion, and service-business operations.
+            Built for HVAC, plumbing, electrical, and local trade companies.
+          </p>
+        </section>
+
+        <article class="post-card" aria-label="Featured blog post">
+          <div class="post-card-body">
+            <div class="post-meta">
+              <span>Featured</span>
+              <span>March 2026</span>
+              <span>8 min read</span>
+            </div>
+            <h2>
+              The Silent Revolution: Why AI Receptionists Are the New Norm for Small Businesses in 2026
+            </h2>
+            <p class="mb-4">
+              Missed calls are missed revenue. This deep dive explains why modern SMBs are replacing voicemail
+              and overflow answering services with always-on AI voice agents that qualify leads, book jobs,
+              and sync directly with CRMs.
+            </p>
+            <a class="post-link" href="/blog-silent-revolution.html">
+              Read article
             </a>
-          </li>
-        </ul>
+          </div>
+        </article>
+        <div class="text-center mt-5">
+          <a href="https://cal.com/aivox-agency/15min?overlayCalendar=true" class="header-action-btn">
+            Talk to Candibly
+          </a>
+        </div>
       </div>
     </main>
 

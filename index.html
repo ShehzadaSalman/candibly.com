@@ -384,8 +384,113 @@
         justify-content: center;
       }
     }
+
+    .exit-intent-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(13, 59, 102, 0.72);
+      backdrop-filter: blur(2px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .exit-intent-overlay.is-visible {
+      display: flex;
+    }
+
+    .exit-intent-popup {
+      position: relative;
+      width: min(100%, 520px);
+      background: #ffffff;
+      border-radius: 18px;
+      border: 1px solid rgba(13, 59, 102, 0.12);
+      box-shadow: 0 20px 60px rgba(13, 59, 102, 0.28);
+      padding: 32px 26px;
+      text-align: left;
+    }
+
+    .exit-intent-close {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+      border: none;
+      border-radius: 50%;
+      background: #eaf0f6;
+      color: #0d3b66;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .exit-intent-eyebrow {
+      display: inline-block;
+      background: #e7f6ea;
+      color: #1f7a35;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 14px;
+    }
+
+    .exit-intent-popup h3 {
+      font-size: 32px;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      color: #0d3b66;
+    }
+
+    .exit-intent-popup p {
+      font-size: 16px;
+      line-height: 1.55;
+      margin-bottom: 22px;
+      color: #244b70;
+    }
+
+    .exit-intent-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .exit-intent-actions .theme-btn {
+      min-width: 220px;
+      text-align: center;
+    }
+
+    .exit-intent-dismiss {
+      border: none;
+      background: transparent;
+      color: #4d6276;
+      font-weight: 600;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    @media (max-width: 575px) {
+      .exit-intent-popup {
+        padding: 26px 18px;
+      }
+
+      .exit-intent-popup h3 {
+        font-size: 26px;
+      }
+
+      .exit-intent-actions .theme-btn {
+        width: 100%;
+        min-width: 0;
+      }
+    }
   </style>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="365a0a30-a333-4f66-9401-8a9940a5fdc3"></script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="67b778ca-65dd-44af-b478-767d3ff4fb06"></script>
 </head>
 
 <body>
@@ -408,6 +513,25 @@
     </svg>
   </div>
   <!-- back to top end -->
+
+  <div class="exit-intent-overlay" id="exit-intent-overlay" aria-hidden="true">
+    <div class="exit-intent-popup" role="dialog" aria-modal="true" aria-labelledby="exit-intent-title">
+      <button class="exit-intent-close" type="button" id="exit-intent-close" aria-label="Close popup">
+        &times;
+      </button>
+      <span class="exit-intent-eyebrow">Before You Go</span>
+      <h3 id="exit-intent-title">Get a Free AI Receptionist Demo</h3>
+      <p>
+        See exactly how Candibly captures missed calls, qualifies leads, and books jobs for home service teams.
+      </p>
+      <div class="exit-intent-actions">
+        <a href="https://cal.com/aivox-agency/15min?overlayCalendar=true" class="theme-btn" id="exit-intent-cta">
+          Claim My Free Demo
+        </a>
+        <button class="exit-intent-dismiss" type="button" id="exit-intent-dismiss">No thanks</button>
+      </div>
+    </div>
+  </div>
 
   <div class="has-smooth" id="has_smooth"></div>
 
@@ -1880,6 +2004,72 @@
   <script src="/static/js/backtotop.js"></script>
   <script src="/static/js/audio-player.js"></script>
   <script src="/static/js/main.js"></script>
+  <script>
+    (function () {
+      var overlay = document.getElementById("exit-intent-overlay");
+      var closeBtn = document.getElementById("exit-intent-close");
+      var dismissBtn = document.getElementById("exit-intent-dismiss");
+      var ctaBtn = document.getElementById("exit-intent-cta");
+
+      if (!overlay || window.matchMedia("(pointer: coarse)").matches) {
+        return;
+      }
+
+      var storageKey = "candibly_exit_intent_seen";
+      var hasSeen = sessionStorage.getItem(storageKey) === "1";
+
+      function closePopup() {
+        overlay.classList.remove("is-visible");
+        overlay.setAttribute("aria-hidden", "true");
+      }
+
+      function markSeen() {
+        sessionStorage.setItem(storageKey, "1");
+        hasSeen = true;
+      }
+
+      function openPopup() {
+        if (hasSeen || overlay.classList.contains("is-visible")) {
+          return;
+        }
+
+        overlay.classList.add("is-visible");
+        overlay.setAttribute("aria-hidden", "false");
+        markSeen();
+      }
+
+      function onMouseOut(event) {
+        if (hasSeen) {
+          return;
+        }
+
+        var movedTowardTop = event.clientY <= 15;
+        var leavingWindow = !event.relatedTarget && !event.toElement;
+
+        if (movedTowardTop && leavingWindow) {
+          openPopup();
+        }
+      }
+
+      document.addEventListener("mouseout", onMouseOut);
+
+      overlay.addEventListener("click", function (event) {
+        if (event.target === overlay) {
+          closePopup();
+        }
+      });
+
+      closeBtn.addEventListener("click", closePopup);
+      dismissBtn.addEventListener("click", closePopup);
+      ctaBtn.addEventListener("click", markSeen);
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && overlay.classList.contains("is-visible")) {
+          closePopup();
+        }
+      });
+    })();
+  </script>
 </body>
 
 </html>

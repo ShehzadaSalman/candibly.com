@@ -10,52 +10,181 @@
     />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Lato:wght@300;400;700&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
     <link rel="stylesheet" href="static/css/bootstrap.min.css" />
     <link rel="stylesheet" href="static/css/main.css" />
     <style>
       :root {
-        --candibly-primary: #0d3b66;
-        --candibly-cta: #28a745;
-        --candibly-bg: #f3f7fc;
-        --candibly-text: #243447;
-        --candibly-card: #ffffff;
-        --candibly-accent: #f39c12;
+        --navy: #0d1f35;
+        --red: #d62d20;
+        --red2: #b52318;
+        --light: #f5f7fa;
+        --white: #ffffff;
+        --text: #2d3748;
+        --muted: #64748b;
+        --border: #dde3ec;
+        --radius: 6px;
+        --shadow: 0 4px 24px rgba(13, 31, 53, 0.1);
+        --shadow-lg: 0 12px 48px rgba(13, 31, 53, 0.16);
       }
 
       body {
-        background: var(--candibly-bg);
-        color: var(--candibly-text);
+        font-family: "Lato", sans-serif;
+        background: var(--white);
+        color: var(--text);
+        line-height: 1.65;
       }
 
-      header {
-        background: #ffffff !important;
-        border-bottom: 1px solid #e8edf5 !important;
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-family: "Barlow Condensed", sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.01em;
+        line-height: 1.05;
+        color: var(--navy);
       }
 
-      header a,
-      header p {
-        color: var(--candibly-text) !important;
+      a {
+        color: inherit;
       }
 
-      .header-action-btn {
+      .container {
+        max-width: 1180px;
+      }
+
+      .btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background: var(--candibly-cta) !important;
-        border-color: var(--candibly-cta) !important;
-        color: #ffffff !important;
-        border-radius: 999px;
-        padding: 0.68rem 1.25rem;
-        font-weight: 600;
-        line-height: 1;
-        text-align: center;
+        gap: 8px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 14px 32px;
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 2px solid transparent;
+        text-decoration: none;
       }
 
-      .footer-area,
-      .footer-area p,
-      .footer-area a,
-      .footer-area li {
-        color: #eaf2ff !important;
+      .btn-sm {
+        padding: 10px 22px;
+        font-size: 14px;
+      }
+
+      .btn-red {
+        background: var(--red);
+        color: var(--white);
+        border-color: var(--red);
+        box-shadow: 0 6px 20px rgba(214, 45, 32, 0.3);
+      }
+
+      .btn-red:hover {
+        color: var(--white);
+        background: var(--red2);
+        border-color: var(--red2);
+        transform: translateY(-2px);
+      }
+
+      .btn-outline-navy {
+        background: transparent;
+        color: var(--navy);
+        border-color: var(--navy);
+      }
+
+      .btn-outline-navy:hover {
+        background: var(--navy);
+        color: var(--white);
+      }
+
+      .header {
+        background: var(--white);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 12px rgba(13, 31, 53, 0.07);
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 16px 0;
+      }
+
+      .header-logo img {
+        height: 60px;
+        width: auto;
+      }
+
+      .header-cta-wrap {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .footer {
+        background: #08192b;
+        padding: 48px 0 32px;
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 40px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 24px;
+      }
+
+      .footer-brand img {
+        height: 60px;
+        margin-bottom: 14px;
+      }
+
+      .footer-brand p {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.4);
+        line-height: 1.6;
+        max-width: 260px;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.45);
+      }
+
+      .footer-copy {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.3);
       }
 
       .article-shell {
@@ -67,11 +196,11 @@
         border-radius: 24px;
         padding: 2.7rem 2rem;
         background:
-          radial-gradient(circle at 8% 15%, rgba(40, 167, 69, 0.13), transparent 44%),
-          radial-gradient(circle at 90% 16%, rgba(243, 156, 18, 0.2), transparent 42%),
-          linear-gradient(140deg, #0d3b66, #195389);
-        color: #f4f9ff;
-        box-shadow: 0 22px 60px rgba(13, 59, 102, 0.22);
+          radial-gradient(circle at 8% 15%, rgba(240, 165, 0, 0.13), transparent 44%),
+          radial-gradient(circle at 90% 16%, rgba(214, 45, 32, 0.2), transparent 42%),
+          linear-gradient(140deg, #0d1f35, #162d4a);
+        color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 22px 60px rgba(13, 31, 53, 0.22);
       }
 
       .article-badge {
@@ -91,6 +220,7 @@
         font-size: clamp(1.65rem, 2.8vw, 2.5rem);
         line-height: 1.22;
         margin: 1rem 0;
+        color: #ffffff;
       }
 
       .article-meta {
@@ -108,10 +238,10 @@
 
       .article-content {
         margin-top: 1.8rem;
-        background: var(--candibly-card);
+        background: var(--white);
         border-radius: 20px;
-        border: 1px solid #e5edf8;
-        box-shadow: 0 14px 36px rgba(22, 41, 73, 0.1);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
         padding: 2.2rem;
       }
 
@@ -124,7 +254,7 @@
 
       .article-content h2,
       .article-content h3 {
-        color: #102d4f;
+        color: var(--navy);
         margin-top: 2.4rem;
       }
 
@@ -137,8 +267,8 @@
       }
 
       .article-content thead th {
-        background: #eef4ff;
-        color: #0d3b66;
+        background: #eef2f8;
+        color: var(--navy);
       }
 
       .article-actions {
@@ -152,18 +282,22 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        border: 1px solid #c6d8f5;
-        color: #0d3b66;
-        border-radius: 999px;
-        padding: 0.65rem 1.15rem;
-        font-weight: 600;
+        border: 2px solid var(--navy);
+        color: var(--navy);
+        border-radius: var(--radius);
+        padding: 10px 22px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
         text-decoration: none;
-        background: #f8fbff;
+        line-height: 1;
       }
 
       .back-link:hover {
-        color: #fff;
-        background: #0d3b66;
+        color: var(--white);
+        background: var(--navy);
       }
 
       .section-wrap {
@@ -172,6 +306,11 @@
       }
 
       @media (max-width: 767px) {
+        .header-inner {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
         .article-hero {
           border-radius: 18px;
           padding: 2rem 1.2rem;
@@ -185,21 +324,22 @@
     </style>
   </head>
   <body>
-    <header style="background: #ffffff; border-bottom: 1px solid #eee;">
-      <div class="container py-4 d-flex align-items-center justify-content-between">
-        <a href="/" class="d-inline-flex align-items-center">
-          <img
-            src="/images/candibly-logo.png"
-            alt="Candibly Logo"
-            height="48"
-          />
-        </a>
-        <a
-          href="https://cal.com/aivox-agency/15min?overlayCalendar=true"
-          class="header-action-btn"
-        >
-          Schedule a Demo
-        </a>
+    <header class="header">
+      <div class="container">
+        <div class="header-inner">
+          <a href="/" class="header-logo d-inline-flex align-items-center">
+            <img src="/images/candibly-logo.svg" alt="Candibly Logo" />
+          </a>
+          <div class="header-cta-wrap">
+            <a href="/blog.html" class="btn btn-outline-navy btn-sm">Blog Listing</a>
+            <a
+              href="https://cal.com/aivox-agency/15min?overlayCalendar=true"
+              class="btn btn-red btn-sm"
+            >
+              Schedule a Demo
+            </a>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -216,7 +356,7 @@
             </div>
           </section>
           <article class="article-content">
-        <p class="text-muted mb-4">Home / Blog / Silent Revolution</p>
+        <p class="text-muted mb-4">Home / <a href="/blog.html">Blog Listing</a> / Silent Revolution</p>
         <p>In 2026, the question for small business owners is no longer <em>if</em> they should adopt artificial intelligence, but <em>how fast</em> they can integrate it. Among the most transformative shifts is the rise of the <strong>AI receptionist</strong>.</p>
         <p>As traditional phone systems and expensive live answering services become obsolete, <strong>AI voice agents</strong> are moving from a "tech luxury" to a fundamental business requirement. Here is why AI receptionists are becoming the new norm for small businesses.</p>
 
@@ -317,35 +457,39 @@
           </tbody>
         </table>
         <div class="article-actions">
-          <a class="back-link" href="/blog.html">Back to Blog</a>
-          <a href="https://cal.com/aivox-agency/15min?overlayCalendar=true" class="header-action-btn">Schedule a Demo</a>
+          <a class="back-link" href="/blog.html">Back to Blog Listing</a>
+          <a href="https://cal.com/aivox-agency/15min?overlayCalendar=true" class="btn btn-red btn-sm">Schedule a Demo</a>
         </div>
         </article>
         </div>
       </div>
     </main>
 
-    <footer class="footer-area" style="background-color: #0D3B66;">
+    <footer class="footer">
       <div class="container">
-        <div class="footer-bottom tp_fade_bottom_footer">
-          <div class="row align-items-center">
-            <div class="col-md-6">
-              <div class="footer-bottom-copyright d-flex justify-content-center justify-content-md-start">
-                <p>&copy; 2026 Candibly All Rights Reserved.</p>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="footer-bottom-menu d-flex justify-content-center justify-content-md-end">
-                <ul>
-                  <li><a href="/privacy.html">Privacy Policy</a></li>
-                  <li><a href="/terms.html">Terms of Service</a></li>
-                  <li><a href="/security.html">Security</a></li>
-                  <li><a href="/blog.html">Blog</a></li>
-                </ul>
-              </div>
-            </div>
+        <div class="footer-inner">
+          <div class="footer-brand">
+            <a href="/" aria-label="Candibly Home">
+              <img src="/images/candibly-logo.svg" alt="Candibly Logo" />
+            </a>
+            <p>
+              AI receptionist for US home service businesses. 24/7 call
+              answering, lead qualification, and job booking.
+            </p>
+            <a
+              href="mailto:info@candibly.com"
+              style="font-size:13px;color:rgba(255,255,255,.45);margin-top:8px;display:block"
+              >info@candibly.com</a
+            >
           </div>
+          <nav class="footer-links">
+            <a href="/privacy.html">Privacy Policy</a>
+            <a href="/terms.html">Terms of Service</a>
+            <a href="/security.html">Security</a>
+            <a href="/blog.html">Blog</a>
+          </nav>
         </div>
+        <div class="footer-copy">&copy; 2026 Candibly All Rights Reserved.</div>
       </div>
     </footer>
   </body>

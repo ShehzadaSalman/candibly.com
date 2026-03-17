@@ -1578,16 +1578,19 @@
         @media(max-width:960px) {
             .header-logo {
                 display: flex;
-                flex-direction: column;
-                align-items: flex-start;
+                align-items: center;
             }
 
             .header-phone-mobile {
-                display: inline-flex;
+                display: none;
             }
 
             .header-phone-desktop {
                 display: none;
+            }
+
+            .header-logo img {
+                height: 28px;
             }
 
             .hero-grid {
@@ -1689,7 +1692,7 @@
         <div class="container">
             <div class="header-inner">
                 <div class="header-logo"><a href="/" aria-label="Candibly Home">
-                        <img src="/images/candibly-logo.svg" alt="Candibly Logo" style="height:60px" />
+                        <img src="/images/candibly-logo.svg" alt="Candibly Logo" style="height:44px" />
                     </a>
                     <a href="https://cal.com/aivox-agency/15min?overlayCalendar=true"
                         class="header-phone-mobile"><i data-feather="calendar"></i> Book a Free Demo</a>

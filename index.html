@@ -1128,10 +1128,19 @@
             margin-bottom: 24px;
         }
 
-        .footer-brand img {
-            height: 40px;
-            opacity: .9;
+        .footer-logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--white);
+            border-radius: 10px;
+            padding: 10px 14px;
             margin-bottom: 12px;
+        }
+
+        .footer-logo img {
+            height: 48px;
+            opacity: .95;
         }
 
         .footer-brand p {
@@ -1258,6 +1267,29 @@
             transform: translateY(0);
         }
 
+        .whatsapp-float {
+            position: fixed;
+            right: 0;
+            bottom: 84px;
+            z-index: 400;
+            width: 116px;
+            height: 116px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform .2s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: translateY(-2px);
+        }
+
+        .whatsapp-float img {
+            width: 62px;
+            height: 62px;
+            object-fit: contain;
+        }
+
         /* Feather icon sizing */
         [data-feather],
         .feather {
@@ -1345,6 +1377,18 @@
             height: 16px;
         }
 
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .anim {
             animation: fadeUp .65s ease both;
         }
@@ -1359,6 +1403,34 @@
 
         .anim-d3 {
             animation-delay: .3s;
+        }
+
+        .has-reveal .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .7s ease, transform .7s ease;
+            transition-delay: var(--reveal-delay, 0ms);
+            will-change: opacity, transform;
+        }
+
+        .has-reveal .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .anim,
+            .trades-inner,
+            .live-dot::before,
+            .wv.active {
+                animation: none;
+            }
+
+            .has-reveal .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
         }
 
         @media(max-width:960px) {
@@ -1442,6 +1514,11 @@
 
     <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i
             data-feather="arrow-up" style="font-size:13px"></i></button>
+    <a class="whatsapp-float"
+        href="https://wa.me/923218835830?text=hey%2C%20can%20you%20tell%20me%20more%20about%20candibly%20%3F"
+        target="_blank" rel="noopener" aria-label="Chat with Candibly on WhatsApp">
+        <img src="/images/whatsapp.png" alt="" aria-hidden="true" />
+    </a>
 
     <div class="exit-overlay" id="exitOverlay">
         <div class="exit-popup">
@@ -1946,8 +2023,8 @@
         <div class="container">
             <div class="footer-inner">
                 <div class="footer-brand">
-                    <a href="/" aria-label="Candibly Home">
-                        <img src="/images/candibly-logo.svg" alt="Candibly Logo" style="height:60px" />
+                    <a href="/" class="footer-logo" aria-label="Candibly Home">
+                        <img src="/images/candibly-logo.svg" alt="Candibly Logo" />
                     </a>
                     <p>AI receptionist for US home service businesses. 24/7 call answering, lead qualification, and job
                         booking.</p>
@@ -1960,6 +2037,7 @@
                     <a href="/industries/plumbing.html">Plumbing</a>
                     <a href="/industries/electrical.html">Electrical</a>
                     <a href="/industries/landscaping.html">Landscaping</a>
+            <a href="/industries/auto-detailing.html">Auto Detailing</a>
                     <a href="/privacy.html">Privacy Policy</a>
                     <a href="/terms.html">Terms of Service</a>
                     <a href="/security.html">Security</a>
@@ -1981,6 +2059,55 @@
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeExit(); });
         const st = document.getElementById('scrollTop');
         window.addEventListener('scroll', () => st.classList.toggle('show', scrollY > 400));
+
+        const allowReveal = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (allowReveal && 'IntersectionObserver' in window) {
+            document.documentElement.classList.add('has-reveal');
+            const revealItems = document.querySelectorAll([
+                '.section-head',
+                '.stat-card',
+                '.step-card',
+                '.why-card',
+                '.intake-left',
+                '.intake-item',
+                '.app-chip',
+                '.apps-wrap + div',
+                '.testi-card',
+                '.faq-item',
+                '.dark-grid > *',
+                '.dark-imgs img',
+                '.footer-brand',
+                '.footer-links'
+            ].join(','));
+
+            revealItems.forEach((item) => item.classList.add('reveal'));
+
+            document.querySelectorAll([
+                '.stats-grid',
+                '.steps-grid',
+                '.why-grid',
+                '.intake-grid',
+                '.apps-wrap',
+                '.testi-grid',
+                '.faq-list',
+                '.dark-imgs'
+            ].join(',')).forEach((group) => {
+                Array.from(group.children).forEach((child, index) => {
+                    child.style.setProperty('--reveal-delay', Math.min(index * 70, 420) + 'ms');
+                });
+            });
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                });
+            }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+
+            revealItems.forEach((item) => revealObserver.observe(item));
+        }
+
         const playBtn = document.getElementById('playBtn');
         const playIcon = document.getElementById('playIcon');
         const trackBar = document.getElementById('trackBar');
@@ -2058,20 +2185,6 @@
     <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=875817028827473&ev=PageView&noscript=1" /></noscript>
     <script>feather.replace({ "stroke-width": 2, "width": 16, "height": 16 });</script>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/5fbcd7a7a1d54c18d8ecc976/1jjf5uc9k';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
-
 </body>
 
 </html>

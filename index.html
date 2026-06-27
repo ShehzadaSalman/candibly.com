@@ -2372,10 +2372,27 @@
         const videoOverlay = document.getElementById('videoOverlay');
         const videoBadge = document.getElementById('videoBadge');
         if (promoVideo && videoOverlay) {
-            videoOverlay.addEventListener('c                                 {
+            videoOverlay.addEventListener('click', () => {
                 promoVideo.controls = true;
-                                                                                                                                                                                                                                                                                                                              y();                                                                                r                         Lis                                                                                 ass                    -hidden')                                       ideoBadge                 dg                        add('is-hidden                    })                                              entListener('p                                               if (promoVide                                  oVideo.ended) return;
-                                    -hi                        });
+                const playPromise = promoVideo.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(() => { promoVideo.muted = true; promoVideo.play(); });
+                }
+            });
+            promoVideo.addEventListener('play', () => {
+                videoOverlay.classList.add('is-hidden');
+                if (videoBadge) videoBadge.classList.add('is-hidden');
+            });
+            promoVideo.addEventListener('pause', () => {
+                if (promoVideo.currentTime && !promoVideo.ended) return;
+                videoOverlay.classList.remove('is-hidden');
+            });
+            promoVideo.addEventListener('ended', () => {
+                promoVideo.controls = false;
+                promoVideo.currentTime = 0;
+                videoOverlay.classList.remove('is-hidden');
+                if (videoBadge) videoBadge.classList.remove('is-hidden');
+            });
         }
 
         const playBtn = document.getElementById('playBtn');
